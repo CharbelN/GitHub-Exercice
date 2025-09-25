@@ -1,11 +1,14 @@
-
-# Project Title
-
-A brief description of what this project does and who it's for
-
 # 📘 Git Exercises
 
 This document contains my worked answers to the Git exercises.  
+
+---
+
+## 🌿 Branches Used
+- **Exercise 1:** `master`  
+- **Exercise 2:** `master` and `my_first_branch`  
+- **Exercise 3:** `undoing-changes` and `anchor`  
+- **Exercise 4:** `feature-branch` and `main`  
 
 ---
 
@@ -193,7 +196,7 @@ git log -3
 ```
 git show --stat provides summary of files and changes.
 git diff A..B = all changes between commit A and commit B.
----
+
 ---
 
 ## 🚀 Exercise 2 – Branches
