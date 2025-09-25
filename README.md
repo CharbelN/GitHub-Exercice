@@ -556,3 +556,102 @@ Rebase
 - Produces a clean, linear history.
 
 - Commit hashes change (rewrites history).
+
+### 7. Rebase With Conflicts
+#### a. Modify on main
+```bash
+git checkout main
+echo 'print("2- Second change in main.pyrrr")' >> main.py
+git add . && git commit
+```
+---
+
+#### b.Modify on feature-branch
+```bash
+git checkout feature-branch
+echo 'print("3- Third change in main.py")' >> main.py
+git add . && git commit
+```
+
+--- 
+
+#### c. Attempt Rebase
+```bash
+git rebase main
+```
+➡️ Git stopped with a conflict in main.py.
+
+--- 
+
+#### d. Check conflicts
+```bash
+git status
+```
+Output:
+```yaml
+interactive rebase in progress; onto 43fa0f9
+Unmerged paths:
+  both modified:   main.py
+```
+--- 
+
+### 8. Resolving Rebase Conflict
+Open the file and remove the conflict markers
+Then:
+```bash
+git add main.py
+git rebase --continue
+```
+Output:
+```bash
+[detached HEAD 786388e] creating a rebase conflict
+ 1 file changed, 1 insertion(+)
+Successfully rebased and updated refs/heads/feature-branch.
+```
+
+---
+
+ d. Abort rebase
+```bash
+git rebase --abort
+```
+➡️ Restores repository to the state before the rebase.
+
+---
+
+e. Testing Abort
+- If aborted before finishing → repo goes back to its original diverged state.
+
+- Re-running git rebase main after abort → same conflict happens, but you can now finish it correctly.
+
+---
+
+### 9. After Completing the Rebase
+Check the history
+```bash
+git log --oneline --graph --branches
+```
+
+a. Commit graph
+
+- Now the graph is linear:
+
+- main commits are the base
+
+- Rebasing replayed feature-branch commits on top
+
+- No merge commit is present.
+
+---
+
+b. How changes combined
+
+- main branch commits remain intact.
+
+- feature-branch commits are rewritten and applied after main.
+
+- Both changes exist in the final history, sequentially.
+
+- The commit hashes of rebased commits are new, since rebase rewrites history.
+
+---
